@@ -19,8 +19,11 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
+        if(savedInstanceState != null){
+            punkty = savedInstanceState.getInt("PUNKTY");
+        }
         textViewPunkty = findViewById(R.id.textViewPunkty);
-
+        textViewPunkty.setText(String.valueOf(punkty));
         button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
