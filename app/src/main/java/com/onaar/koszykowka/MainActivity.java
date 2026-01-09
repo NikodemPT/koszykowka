@@ -2,6 +2,7 @@ package com.onaar.koszykowka;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -22,13 +23,20 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         punktyViewModel = new ViewModelProvider(this).get(PunktyViewModel.class);
-        binding.textViewPunkty.setText(String.valueOf(punktyViewModel.getPunkty()));
+        punktyViewModel.getPunkty().observe(
+                this,
+                new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer integer) {
+                        binding.textViewPunkty.setText(integer.toString());
+                    }
+                }
+        );
         binding.button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         punktyViewModel.addPunkty(3);
-                        binding.textViewPunkty.setText(String.valueOf(punktyViewModel.getPunkty()));
                     }
                 }
         );
@@ -37,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         punktyViewModel.addPunkty(2);
-                        binding.textViewPunkty.setText(String.valueOf(punktyViewModel.getPunkty()));
                     }
                 }
         );
@@ -46,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         punktyViewModel.addPunkty(1);
-                        binding.textViewPunkty.setText(String.valueOf(punktyViewModel.getPunkty()));
                     }
                 }
         );
